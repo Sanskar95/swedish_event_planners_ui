@@ -43,7 +43,7 @@ const Header = () => {
               <ListItemIcon>
                 <FormatAlignJustifyIcon />
               </ListItemIcon>
-              <ListItemText primary={"CREATE EVENT REQUEST"} />
+              <ListItemText primary={"Create Event Request"} />
             </ListItem>
           </Link>
           <Link to={"/event-requests"} style={{ textDecoration: "none" }}>
@@ -51,9 +51,43 @@ const Header = () => {
               <ListItemIcon>
                 <VisibilityIcon />
               </ListItemIcon>
-              <ListItemText primary={"VIEW REQUESTS"} />
+              <ListItemText primary={"View Event Requests"} />
             </ListItem>
           </Link>
+            <hr/>
+            <Link to={"/create-financial-request"} style={{ textDecoration: "none" }}>
+                <ListItem button onClick={() => toggleDrawer()}>
+                    <ListItemIcon>
+                        <FormatAlignJustifyIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={"Create Financial Request"} />
+                </ListItem>
+            </Link>
+            <Link to={"/financial-requests"} style={{ textDecoration: "none" }}>
+                <ListItem button onClick={() => toggleDrawer()}>
+                    <ListItemIcon>
+                        <VisibilityIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={"View Financial Requests"} />
+                </ListItem>
+            </Link>
+            <hr/>
+            <Link to={"/create-recruitment-request"} style={{ textDecoration: "none" }}>
+                <ListItem button onClick={() => toggleDrawer()}>
+                    <ListItemIcon>
+                        <FormatAlignJustifyIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={"Create Recruitment Request"} />
+                </ListItem>
+            </Link>
+            <Link to={"/recruitment-requests"} style={{ textDecoration: "none" }}>
+                <ListItem button onClick={() => toggleDrawer()}>
+                    <ListItemIcon>
+                        <VisibilityIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={"View Recruitment Requests"} />
+                </ListItem>
+            </Link>
         </List>
       </Drawer>
     </div>

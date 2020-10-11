@@ -59,6 +59,7 @@ class FinancialRequestManagementScreen extends Component {
           dialogueOpen: false,
           currentId: null,
         });
+          this.fetchRequests();
       })
       .catch(() => {
         toast.error("Something went wrong!");
@@ -179,7 +180,8 @@ class FinancialRequestManagementScreen extends Component {
               margin="dense"
               id="agreedAmount"
               label="Agreed Amount"
-              type="email"
+              variant="outlined"
+              type={'number'}
               fullWidth
               onChange={this.handleTextFieldChange}
             />
@@ -188,7 +190,7 @@ class FinancialRequestManagementScreen extends Component {
               margin="dense"
               id="currentDialogueMessage"
               label="Message"
-              type="email"
+              variant="outlined"
               fullWidth
               onChange={this.handleTextFieldChange}
             />
