@@ -23,7 +23,7 @@ const Header = () => {
 
   return (
     <div>
-      <AppBar position="static">
+      <AppBar position="sticky">
         <Toolbar>
           <IconButton
             edge="start"
@@ -86,6 +86,23 @@ const Header = () => {
                         <VisibilityIcon />
                     </ListItemIcon>
                     <ListItemText primary={"View Recruitment Requests"} />
+                </ListItem>
+            </Link>
+            <hr/>
+            <Link to={"/create-subteam-task"} style={{ textDecoration: "none" }}>
+                <ListItem button onClick={() => toggleDrawer()}>
+                    <ListItemIcon>
+                        <FormatAlignJustifyIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={"Create Subteam Task"} />
+                </ListItem>
+            </Link>
+            <Link to={"/subteam-tasks"} style={{ textDecoration: "none" }}>
+                <ListItem button onClick={() => toggleDrawer()}>
+                    <ListItemIcon>
+                        <VisibilityIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={"View Subteam Tasks"} />
                 </ListItem>
             </Link>
         </List>

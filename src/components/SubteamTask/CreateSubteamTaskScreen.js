@@ -1,12 +1,10 @@
 import React, { PureComponent } from "react";
-import PropTypes from "prop-types";
 import TextField from "@material-ui/core/TextField/TextField";
 import Select from "@material-ui/core/Select/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/styles";
 import InputLabel from "@material-ui/core/InputLabel";
-import { createFinancialRequest } from "../../rest/FinancialRequestService";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {createRecruitmentRequest} from "../../rest/RecruitmentRequestService";
@@ -18,15 +16,15 @@ const styles = () => ({
     },
 });
 
-class CreateRecruitmentRequestScreen extends PureComponent {
+class CreateSubteamTaskScreen extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            requestingDepartment: null,
-            contractType: null,
-            jobDescription: null,
-            jobTitle: null,
-            yearsOfExperience: null
+            department: null,
+            subteamContactName: null,
+            priority: null,
+            description: null,
+            projectReference: null
         };
     }
 
@@ -42,7 +40,7 @@ class CreateRecruitmentRequestScreen extends PureComponent {
     handleCreate = () => {
         createRecruitmentRequest(this.state)
             .then(() => {
-                toast.success("Requested created successfully");
+                toast.success("Task created successfully");
             })
             .catch(() => {
                 toast.error("Something  went wrong!");
@@ -54,65 +52,68 @@ class CreateRecruitmentRequestScreen extends PureComponent {
         return (
             <div>
                 <div style={{ display: "inline-block", marginTop: "5rem" }}>
-                    <h2>Create Recruitment Request</h2>
+                    <h2>Create Subteam Task</h2>
                     <form style={{ margin: "4rem" }}>
                         <InputLabel style={{ textAlign: "left" }}>
-                            Contract Type
+                            Department
                         </InputLabel>
                         <Select
                             className={classes.textField}
                             inputProps={{
-                                name: 'contractType',
+                                name: 'department',
                             }}
                             fullWidth={true}
                             variant="outlined"
-                            value={this.state.contractType}
+                            value={this.state.department}
                             onChange={this.handleSelectChange}
                         >
-                            <MenuItem value={"FullTime"}>Full Time</MenuItem>
-                            <MenuItem value={"PartTime"}>Part Time</MenuItem>
+
+                            <MenuItem value={"General"}>General</MenuItem>
+                            <MenuItem value={"Decorations"}>Decorations</MenuItem>
+                            <MenuItem value={"Photograph"}>Photograph</MenuItem>
+                            <MenuItem value={"Music"}>Music</MenuItem>
+                            <MenuItem value={"GraphicDesign"}>GraphicDesign</MenuItem>
+                            <MenuItem value={"ComputerRelated"}>ComputerRelated</MenuItem>
                         </Select>
 
                         <InputLabel style={{ textAlign: "left" , marginTop: '2rem'}}>
-                            Requesting Department
+                           Priority
                         </InputLabel>
                         <Select
                             className={classes.textField}
                             inputProps={{
-                                name: 'requestingDepartment',
+                                name: 'priority',
                             }}
                             fullWidth={true}
                             variant="outlined"
-                            value={this.state.requestingDepartment}
+                            value={this.state.priority}
                             onChange={this.handleSelectChange}
                         >
-                            <MenuItem value={"Administration"}>Administration</MenuItem>
-                            <MenuItem value={"Service"}>Service</MenuItem>
-                            <MenuItem value={"Financial"}>Financial</MenuItem>
-                            <MenuItem value={"Production"}>Production</MenuItem>
+                            <MenuItem value={"High"}>High</MenuItem>
+                            <MenuItem value={"Medium"}>Medium</MenuItem>
+                            <MenuItem value={"Low"}>Low</MenuItem>
                         </Select>
                         <TextField
                             className={classes.textField}
                             fullWidth={true}
-                            id="yearsOfExperience"
-                            label="Years of Experience"
-                            variant="outlined"
-                            type={'number'}
-                            onChange={this.handleTextFieldChange}
-                        />
-                        <TextField
-                            className={classes.textField}
-                            fullWidth={true}
-                            id="jobTitle"
-                            label="Job Title"
+                            id="subteamContactName"
+                            label="Assign To:"
                             variant="outlined"
                             onChange={this.handleTextFieldChange}
                         />
                         <TextField
                             className={classes.textField}
                             fullWidth={true}
-                            id="jobDescription"
-                            label="Job Description"
+                            id="projectReference"
+                            label="ProjectReference"
+                            variant="outlined"
+                            onChange={this.handleTextFieldChange}
+                        />
+                        <TextField
+                            className={classes.textField}
+                            fullWidth={true}
+                            id="description"
+                            label="Description"
                             multiline={true}
                             variant="outlined"
                             onChange={this.handleTextFieldChange}
@@ -133,6 +134,5 @@ class CreateRecruitmentRequestScreen extends PureComponent {
     }
 }
 
-CreateRecruitmentRequestScreen.propTypes = {};
 
-export default withStyles(styles)(CreateRecruitmentRequestScreen);
+export default withStyles(styles)(CreateSubteamTaskScreen);

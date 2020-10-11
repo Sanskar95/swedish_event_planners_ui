@@ -90,8 +90,7 @@ class EventPlanningManagementScreen extends Component {
             <Card
               style={{
                 backgroundColor: "#d3cdf7",
-                margin: "2rem",
-                width: "70%",
+                margin: "2rem 8rem",
               }}
             >
               <CardContent>
