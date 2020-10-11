@@ -1,11 +1,9 @@
 import React, { PureComponent } from "react";
-import PropTypes from "prop-types";
 import TextField from "@material-ui/core/TextField";
 import { withStyles } from "@material-ui/styles";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
-import CardActions from "@material-ui/core/CardActions/CardActions";
 import { createEventPlanningRequest } from "../../rest/EventPlanningRequestService";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -45,6 +43,9 @@ class CreateEventPlanningRequestScreen extends PureComponent {
   handleTextFieldChange = (event) => {
     this.setState({ [event.target.id]: event.target.value });
   };
+  handleSelectChange = (event)=>{
+    this.setState({preferences: event.target.value})
+  }
 
   render() {
     const { classes } = this.props;
@@ -108,6 +109,7 @@ class CreateEventPlanningRequestScreen extends PureComponent {
               id="numberOfAttendees"
               label="Number of Attendees"
               variant="outlined"
+              type={'number'}
               onChange={this.handleTextFieldChange}
             />
             <TextField
@@ -116,6 +118,7 @@ class CreateEventPlanningRequestScreen extends PureComponent {
               id="expectedBudget"
               label="Expected Budget"
               variant="outlined"
+              type={'number'}
               onChange={this.handleTextFieldChange}
             />
             <Select
@@ -123,8 +126,8 @@ class CreateEventPlanningRequestScreen extends PureComponent {
               id="preferences"
               fullWidth={true}
               variant="outlined"
-              // value={this.state.preferences}
-              onChange={this.handleTextFieldChange}
+              value={this.state.preferences}
+              onChange={this.handleSelectChange}
             >
               <MenuItem value={"Decorations"}>Decorations</MenuItem>
               <MenuItem value={"Parties"}>Parties</MenuItem>
@@ -147,6 +150,5 @@ class CreateEventPlanningRequestScreen extends PureComponent {
   }
 }
 
-CreateEventPlanningRequestScreen.propTypes = {};
 
 export default withStyles(styles)(CreateEventPlanningRequestScreen);
