@@ -36,8 +36,8 @@ const Header = () => {
           <Typography variant="h6">SWEDISH EVENT PLANNERS</Typography>
         </Toolbar>
       </AppBar>
-      <Drawer anchor={"left"} open={drawerOpen} onClose={() => toggleDrawer()}>
-        <List>
+      <Drawer  anchor={"left"} open={drawerOpen} onClose={() => toggleDrawer()}>
+        <List style={{backgroundColor: '#f2f2f2'}}>
           <Link to={"/create-event-request"} style={{ textDecoration: "none" }}>
             <ListItem button onClick={() => toggleDrawer()}>
               <ListItemIcon>

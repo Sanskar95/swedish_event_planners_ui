@@ -8,6 +8,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {createRecruitmentRequest} from "../../rest/RecruitmentRequestService";
+import {createSubteamTask} from "../../rest/SubteamTaskService";
 toast.configure();
 
 const styles = () => ({
@@ -38,7 +39,7 @@ class CreateSubteamTaskScreen extends PureComponent {
     };
 
     handleCreate = () => {
-        createRecruitmentRequest(this.state)
+        createSubteamTask(this.state)
             .then(() => {
                 toast.success("Task created successfully");
             })

@@ -10,6 +10,7 @@ import FinancialRequestManagementScreen from "./components/FinancialRequest/Fina
 import CreateRecruitmentRequestScreen from "./components/RecruitmentRequest/CreateRecruitmentRequestScreen";
 import RecruitmentRequestManagementScreen from "./components/RecruitmentRequest/RecruitmentRequestManagementScreen";
 import CreateSubteamTaskScreen from "./components/SubteamTask/CreateSubteamTaskScreen";
+import SubteamTaskManagementScreen from "./components/SubteamTask/SubteamTaskManagementScreen";
 
 function App() {
   return (
@@ -24,7 +25,7 @@ function App() {
             <Route exact path="/financial-requests" component={FinancialRequestManagementScreen}/>
             <Route exact path="/create-recruitment-request" component={CreateRecruitmentRequestScreen}/>
             <Route exact path="/recruitment-requests" component={RecruitmentRequestManagementScreen}/>
-            <Route exact path="/subteam-tasks" component={CreateSubteamTaskScreen}/>
+            <Route exact path="/subteam-tasks" component={SubteamTaskManagementScreen}/>
             <Route exact path="/create-subteam-task" component={CreateSubteamTaskScreen}/>
         </BrowserRouter>
     </div>
