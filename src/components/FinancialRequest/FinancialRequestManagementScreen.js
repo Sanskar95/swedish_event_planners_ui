@@ -88,7 +88,7 @@ class FinancialRequestManagementScreen extends Component {
             <Card
               style={{
                 backgroundColor: "#d3cdf7",
-                margin: "2rem 8rem",
+                margin: "2rem 10%",
               }}
             >
               <CardContent>
@@ -127,7 +127,7 @@ class FinancialRequestManagementScreen extends Component {
                   </AccordionDetails>
                 </Accordion>
                 {financialRequest.response && (
-                  <Accordion style={{ backgroundColor: "#a3b0f7" }}>
+                  <Accordion style={{  backgroundColor: "#cabc38", marginTop: '1rem'  }}>
                     <AccordionSummary
                       expandIcon={<ExpandMoreIcon />}
                       aria-controls="panel1a-content"
