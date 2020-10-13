@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {createRecruitmentRequest} from "../../rest/RecruitmentRequestService";
 import {createSubteamTask} from "../../rest/SubteamTaskService";
+import {Redirect} from "react-router-dom";
 toast.configure();
 
 const styles = () => ({
@@ -49,7 +50,12 @@ class CreateSubteamTaskScreen extends PureComponent {
     };
 
     render() {
+
         const { classes } = this.props;
+        if(localStorage.getItem('role')===null){
+            console.log(localStorage.getItem('role'))
+            return <Redirect to='/'/>;
+        }
         return (
             <div>
                 <div style={{ display: "inline-block", marginTop: "5rem" }}>

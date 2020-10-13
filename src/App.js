@@ -11,6 +11,7 @@ import CreateRecruitmentRequestScreen from "./components/RecruitmentRequest/Crea
 import RecruitmentRequestManagementScreen from "./components/RecruitmentRequest/RecruitmentRequestManagementScreen";
 import CreateSubteamTaskScreen from "./components/SubteamTask/CreateSubteamTaskScreen";
 import SubteamTaskManagementScreen from "./components/SubteamTask/SubteamTaskManagementScreen";
+import HomeScreen from "./components/Home/HomeScreen";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <BrowserRouter>
             {/*<Route exact path="/" component={SectionScreen}></Route>*/}
             <Header/>
+            <Route exact path="/" component={HomeScreen}/>
             <Route exact path="/event-requests" component={EventPlanningManagementScreen}/>
             <Route exact path="/create-event-request" component={CreateEventPlanningRequestScreen}/>
             <Route exact path="/create-financial-request" component={CreateFinancialRequestScreen}/>

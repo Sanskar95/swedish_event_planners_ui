@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 import { createEventPlanningRequest } from "../../rest/EventPlanningRequestService";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import {Redirect} from "react-router-dom";
 toast.configure()
 
 const styles = () => ({
@@ -48,6 +49,10 @@ class CreateEventPlanningRequestScreen extends PureComponent {
   }
 
   render() {
+    if(localStorage.getItem('role')===null){
+      console.log(localStorage.getItem('role'))
+      return <Redirect to='/'/>;
+    }
     const { classes } = this.props;
     return (
       <div>

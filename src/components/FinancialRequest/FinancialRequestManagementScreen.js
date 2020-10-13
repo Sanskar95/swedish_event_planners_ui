@@ -21,6 +21,7 @@ import {
   modifyFinancialRequestPromise,
 } from "../../rest/FinancialRequestService";
 import TextField from "@material-ui/core/TextField";
+import {Redirect} from "react-router-dom";
 toast.configure();
 
 class FinancialRequestManagementScreen extends Component {
@@ -80,6 +81,11 @@ class FinancialRequestManagementScreen extends Component {
   };
 
   render() {
+    if(localStorage.getItem('role')===null){
+      console.log(localStorage.getItem('role'))
+      return <Redirect to='/'/>;
+    }
+
     const { financialRequests } = this.state;
     return (
       <div>

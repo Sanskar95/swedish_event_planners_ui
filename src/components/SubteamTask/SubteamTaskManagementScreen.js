@@ -19,6 +19,7 @@ import TextField from "@material-ui/core/TextField/TextField";
 import DialogActions from "@material-ui/core/DialogActions/DialogActions";
 import Dialog from "@material-ui/core/Dialog/Dialog";
 import {toast} from "react-toastify";
+import {Redirect} from "react-router-dom";
 
 class SubteamTaskManagementScreen extends PureComponent {
 
@@ -83,6 +84,11 @@ class SubteamTaskManagementScreen extends PureComponent {
 
     render() {
 const {subteamTasks} = this.state
+        if(localStorage.getItem('role')===null){
+            console.log(localStorage.getItem('role'))
+            return <Redirect to='/'/>;
+        }
+
         return (
             <div>
                 <TableContainer style={{margin: '3rem', width: '70%', backgroundColor: '#faffbb'}} component={Paper}>

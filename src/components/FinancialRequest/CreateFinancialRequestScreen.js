@@ -9,6 +9,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import { createFinancialRequest } from "../../rest/FinancialRequestService";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import {Redirect} from "react-router-dom";
 toast.configure();
 
 const styles = () => ({
@@ -48,6 +49,11 @@ class CreateFinancialRequestScreen extends PureComponent {
   };
 
   render() {
+    if(localStorage.getItem('role')===null){
+      console.log(localStorage.getItem('role'))
+      return <Redirect to='/'/>;
+    }
+
     const { classes } = this.props;
     return (
       <div>

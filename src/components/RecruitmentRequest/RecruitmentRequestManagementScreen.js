@@ -25,6 +25,7 @@ import {getRecruitmentRequestsPromise, modifyRecruitmentRequestPromise} from "..
 import InputLabel from "@material-ui/core/InputLabel/InputLabel";
 import Select from "@material-ui/core/Select/Select";
 import MenuItem from "@material-ui/core/MenuItem";
+import {Redirect} from "react-router-dom";
 toast.configure();
 
 class RecruitmentRequestManagementScreen extends Component {
@@ -88,6 +89,11 @@ class RecruitmentRequestManagementScreen extends Component {
     };
 
     render() {
+        if(localStorage.getItem('role')===null){
+            console.log(localStorage.getItem('role'))
+            return <Redirect to='/'/>;
+        }
+
         const { recruitmentRequests } = this.state;
         return (
             <div>

@@ -19,6 +19,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Checkbox from "@material-ui/core/Checkbox";
+import {Redirect} from "react-router-dom";
 toast.configure();
 
 class EventPlanningManagementScreen extends Component {
@@ -82,6 +83,11 @@ class EventPlanningManagementScreen extends Component {
   };
 
   render() {
+    if(localStorage.getItem('role')===null){
+      console.log(localStorage.getItem('role'))
+      return <Redirect to='/'/>;
+    }
+
     const { eventPlanningRequests } = this.state;
     return (
       <div>
