@@ -41,6 +41,7 @@ class HomeScreen extends PureComponent {
 
         return (
             <div>
+                <h1>Welcome, Click on the menu to proceed!</h1>
                 <Dialog open={loginModalOpen}  >
                     <DialogTitle id="form-dialog-title">Login!</DialogTitle>
                     <DialogContent>

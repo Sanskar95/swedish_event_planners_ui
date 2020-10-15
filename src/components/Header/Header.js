@@ -95,6 +95,14 @@ const Header = () => {
                 <ListItemText primary={"Create Subteam Task"} />
               </ListItem>
             </Link>
+              <Link to={"/subteam-tasks"} style={{ textDecoration: "none" }}>
+                  <ListItem button onClick={() => toggleDrawer()}>
+                      <ListItemIcon>
+                          <VisibilityIcon />
+                      </ListItemIcon>
+                      <ListItemText primary={"View Subteam Tasks"} />
+                  </ListItem>
+              </Link>
           </List>
         );
       case "FINANCIAL_MANAGER":

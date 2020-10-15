@@ -19,7 +19,13 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Checkbox from "@material-ui/core/Checkbox";
-import {Redirect} from "react-router-dom";
+import { Redirect } from "react-router-dom";
+import Dialog from "@material-ui/core/Dialog/Dialog";
+import DialogTitle from "@material-ui/core/DialogTitle/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import TextField from "@material-ui/core/TextField/TextField";
+import DialogActions from "@material-ui/core/DialogActions/DialogActions";
 toast.configure();
 
 class EventPlanningManagementScreen extends Component {
@@ -27,6 +33,9 @@ class EventPlanningManagementScreen extends Component {
     super(props);
     this.state = {
       eventPlanningRequests: [],
+      dialogueOpen: false,
+      feedback: null,
+      currentId: null,
     };
   }
 
@@ -49,10 +58,16 @@ class EventPlanningManagementScreen extends Component {
       });
   };
 
-  handleFinancialManagerApproval = (id, feedBack) => {
-    getFinancialManagerApprovalPromise(id, feedBack)
+  handleFinancialManagerApproval = () => {
+    const { currentId, feedback } = this.state;
+    getFinancialManagerApprovalPromise(currentId, feedback)
       .then((res) => {
         toast.success("Financial Manager approved successfully");
+        this.setState({
+          feedback: null,
+          dialogueOpen: false,
+          currentId: null,
+        });
         this.fetchRequests();
       })
       .catch(() => {
@@ -81,16 +96,25 @@ class EventPlanningManagementScreen extends Component {
         toast.error("something went wrong!");
       });
   };
+  handleTextFieldChange = (event) => {
+    this.setState({ [event.target.id]: event.target.value });
+  };
+
+  handleRespondToRequest = (id) => {
+    this.setState({ currentId: id, dialogueOpen: true });
+  };
 
   render() {
-    if(localStorage.getItem('role')===null){
-      console.log(localStorage.getItem('role'))
-      return <Redirect to='/'/>;
+    const role = localStorage.getItem("role");
+    if (localStorage.getItem("role") === null) {
+      console.log(localStorage.getItem("role"));
+      return <Redirect to="/" />;
     }
 
     const { eventPlanningRequests } = this.state;
     return (
       <div>
+        <p>LOGGED IN AS : {role}</p>
         {eventPlanningRequests.map((eventPlanningRequest) => {
           return (
             <Card
@@ -182,55 +206,126 @@ class EventPlanningManagementScreen extends Component {
                     </Typography>
                   </AccordionDetails>
                 </Accordion>
+                {eventPlanningRequest.financialManagerFeedback &&
+                  (role === "FINANCIAL_MANAGER" || role === "ADMIN") && (
+                    <Accordion
+                      style={{ backgroundColor: "#cabc38", marginTop: "1rem" }}
+                    >
+                      <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="panel1a-content"
+                        id="panel1a-header"
+                      >
+                        <Typography>Click here to see feedback</Typography>
+                      </AccordionSummary>
+                      <AccordionDetails style={{ display: "block" }}>
+                        <Typography style={{ textAlign: "left" }}>
+                          <strong>FeedBack : </strong>
+                          {eventPlanningRequest.financialManagerFeedback}
+                        </Typography>
+                      </AccordionDetails>
+                    </Accordion>
+                  )}
               </CardContent>
               <CardActions style={{ float: "right" }}>
-                <Button
-                  size={"small"}
-                  variant="outlined"
-                  color="secondary"
-                  onClick={() =>
-                    this.handleInitialScsoApproval(eventPlanningRequest.id)
-                  }
-                >
-                  Change Initial Scso approval status
-                </Button>
-                <Button
-                  size={"small"}
-                  variant="outlined"
-                  color="secondary"
-                  onClick={() =>
-                    this.handleFinancialManagerApproval(
-                      eventPlanningRequest.id,
-                      "niceee"
-                    )
-                  }
-                >
-                  Change financial manager approval status
-                </Button>
-                <Button
-                  size={"small"}
-                  variant="outlined"
-                  color="secondary"
-                  onClick={() =>
-                    this.handleAdminApproval(eventPlanningRequest.id)
-                  }
-                >
-                  Change admin approval status
-                </Button>
-                <Button
-                  size={"small"}
-                  variant="outlined"
-                  color="primary"
-                  onClick={() =>
-                    this.handleFinalScsoApproval(eventPlanningRequest.id)
-                  }
-                >
-                  Change Final approval status
-                </Button>
+                {role === "SENIOR_CUSTOMER_SERVICE_OFFICER" && (
+                  <Button
+                    size={"small"}
+                    variant="outlined"
+                    color="secondary"
+                    onClick={() =>
+                      this.handleInitialScsoApproval(eventPlanningRequest.id)
+                    }
+                  >
+                    Change Initial Scso approval status
+                  </Button>
+                )}
+                {role === "FINANCIAL_MANAGER" && (
+                  <Button
+                    size={"small"}
+                    variant="outlined"
+                    disabled={
+                      !eventPlanningRequest.approvedBySeniorCustomerServiceOfficer
+                    }
+                    color="secondary"
+                    onClick={() =>
+                      this.handleRespondToRequest(eventPlanningRequest.id)
+                    }
+                  >
+                    Respond
+                  </Button>
+                )}
+                {role === "ADMIN" && (
+                  <Button
+                    size={"small"}
+                    variant="outlined"
+                    disabled={!eventPlanningRequest.approvedByFinancialManager}
+                    color="secondary"
+                    onClick={() =>
+                      this.handleAdminApproval(eventPlanningRequest.id)
+                    }
+                  >
+                    Change admin approval status
+                  </Button>
+                )}
+
+                {role === "SENIOR_CUSTOMER_SERVICE_OFFICER" && (
+                  <Button
+                    size={"small"}
+                    variant="outlined"
+                    color="primary"
+                    disabled={
+                      !(
+                        eventPlanningRequest.approvedBySeniorCustomerServiceOfficer &&
+                        eventPlanningRequest.approvedByAdminManager
+                      )
+                    }
+                    onClick={() =>
+                      this.handleFinalScsoApproval(eventPlanningRequest.id)
+                    }
+                  >
+                    Change Final approval status
+                  </Button>
+                )}
               </CardActions>
             </Card>
           );
         })}
+        <Dialog
+          open={this.state.dialogueOpen}
+          onClose={this.handleOnClose}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogTitle id="form-dialog-title">Respond</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Please respond to the request by filling the below fields!
+            </DialogContentText>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="feedback"
+              label="FeedBack"
+              variant="outlined"
+              fullWidth
+              onChange={this.handleTextFieldChange}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button
+              onClick={() => this.setState({ dialogueOpen: false })}
+              color="primary"
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={this.handleFinancialManagerApproval}
+              color="primary"
+            >
+              Submit
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
     );
   }
