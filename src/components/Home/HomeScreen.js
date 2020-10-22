@@ -15,6 +15,7 @@ class HomeScreen extends PureComponent {
             loginModalOpen:true,
             username: null,
             password: null,
+            showBadMessageFlag:  false
         }
     }
 
@@ -29,6 +30,7 @@ class HomeScreen extends PureComponent {
             localStorage.setItem('role', response.data.role)
             this.setState({loginModalOpen: false})
         }).catch(error=>{
+            this.setState({showBadMessageFlag: true})
             console.log(error)
         })
     }
@@ -37,7 +39,7 @@ class HomeScreen extends PureComponent {
         this.setState({[event.target.id]: event.target.value})
     }
     render() {
-        const{loginModalOpen}= this.state
+        const{loginModalOpen, showBadMessageFlag}= this.state
 
         return (
             <div>
@@ -64,6 +66,7 @@ class HomeScreen extends PureComponent {
 
                         />
                     </DialogContent>
+                    {showBadMessageFlag && <p style={{color: 'red', paddingLeft: '1.5rem'}}>Bad credentials!</p>}
                     <DialogActions>
                         <Button onClick={this.handleLogin} color="primary" variant="contained">
                             LOGIN

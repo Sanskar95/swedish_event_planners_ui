@@ -73,6 +73,14 @@ const Header = () => {
                 <ListItemText primary={"Create Financial Request"} />
               </ListItem>
             </Link>
+              <Link to={"/financial-requests"} style={{ textDecoration: "none" }}>
+                  <ListItem button onClick={() => toggleDrawer()}>
+                      <ListItemIcon>
+                          <VisibilityIcon />
+                      </ListItemIcon>
+                      <ListItemText primary={"View Financial Requests"} />
+                  </ListItem>
+              </Link>
             <Link
               to={"/create-recruitment-request"}
               style={{ textDecoration: "none" }}
