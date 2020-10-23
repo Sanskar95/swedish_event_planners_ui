@@ -114,7 +114,6 @@ class EventPlanningManagementScreen extends Component {
     const { eventPlanningRequests } = this.state;
     return (
       <div>
-        <p>LOGGED IN AS : {role}</p>
         {eventPlanningRequests.map((eventPlanningRequest) => {
           return (
             <Card

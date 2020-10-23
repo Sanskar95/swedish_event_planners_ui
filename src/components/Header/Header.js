@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import "./Header.css";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
@@ -12,20 +12,25 @@ import ListItemText from "@material-ui/core/ListItemText";
 import List from "@material-ui/core/List";
 import FormatAlignJustifyIcon from "@material-ui/icons/FormatAlignJustify";
 import VisibilityIcon from "@material-ui/icons/Visibility";
-import {Link, Redirect} from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 
 const Header = () => {
   const [drawerOpen, setDrawerOpen] = React.useState(false);
+  const [role, setRole] = React.useState(null);
+
+  useEffect(() => {
+    setRole(localStorage.getItem("role"));
+  });
 
   function toggleDrawer() {
     setDrawerOpen(!drawerOpen);
   }
 
-  const handleLogout=()=>{
-      localStorage.clear()
-     window.location.reload();
-  }
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.reload();
+  };
 
   const list = () => {
     const role = localStorage.getItem("role");
@@ -73,14 +78,14 @@ const Header = () => {
                 <ListItemText primary={"Create Financial Request"} />
               </ListItem>
             </Link>
-              <Link to={"/financial-requests"} style={{ textDecoration: "none" }}>
-                  <ListItem button onClick={() => toggleDrawer()}>
-                      <ListItemIcon>
-                          <VisibilityIcon />
-                      </ListItemIcon>
-                      <ListItemText primary={"View Financial Requests"} />
-                  </ListItem>
-              </Link>
+            <Link to={"/financial-requests"} style={{ textDecoration: "none" }}>
+              <ListItem button onClick={() => toggleDrawer()}>
+                <ListItemIcon>
+                  <VisibilityIcon />
+                </ListItemIcon>
+                <ListItemText primary={"View Financial Requests"} />
+              </ListItem>
+            </Link>
             <Link
               to={"/create-recruitment-request"}
               style={{ textDecoration: "none" }}
@@ -103,14 +108,68 @@ const Header = () => {
                 <ListItemText primary={"Create Subteam Task"} />
               </ListItem>
             </Link>
-              <Link to={"/subteam-tasks"} style={{ textDecoration: "none" }}>
-                  <ListItem button onClick={() => toggleDrawer()}>
-                      <ListItemIcon>
-                          <VisibilityIcon />
-                      </ListItemIcon>
-                      <ListItemText primary={"View Subteam Tasks"} />
-                  </ListItem>
-              </Link>
+            <Link to={"/subteam-tasks"} style={{ textDecoration: "none" }}>
+              <ListItem button onClick={() => toggleDrawer()}>
+                <ListItemIcon>
+                  <VisibilityIcon />
+                </ListItemIcon>
+                <ListItemText primary={"View Subteam Tasks"} />
+              </ListItem>
+            </Link>
+          </List>
+        );
+      case "SERVICE_MANAGER":
+        return (
+          <List style={{ backgroundColor: "#f2f2f2" }}>
+            <Link
+              to={"/create-financial-request"}
+              style={{ textDecoration: "none" }}
+            >
+              <ListItem button onClick={() => toggleDrawer()}>
+                <ListItemIcon>
+                  <FormatAlignJustifyIcon />
+                </ListItemIcon>
+                <ListItemText primary={"Create Financial Request"} />
+              </ListItem>
+            </Link>
+            <Link to={"/financial-requests"} style={{ textDecoration: "none" }}>
+              <ListItem button onClick={() => toggleDrawer()}>
+                <ListItemIcon>
+                  <VisibilityIcon />
+                </ListItemIcon>
+                <ListItemText primary={"View Financial Requests"} />
+              </ListItem>
+            </Link>
+            <Link
+              to={"/create-recruitment-request"}
+              style={{ textDecoration: "none" }}
+            >
+              <ListItem button onClick={() => toggleDrawer()}>
+                <ListItemIcon>
+                  <FormatAlignJustifyIcon />
+                </ListItemIcon>
+                <ListItemText primary={"Create Recruitment Request"} />
+              </ListItem>
+            </Link>
+            <Link
+              to={"/create-subteam-task"}
+              style={{ textDecoration: "none" }}
+            >
+              <ListItem button onClick={() => toggleDrawer()}>
+                <ListItemIcon>
+                  <FormatAlignJustifyIcon />
+                </ListItemIcon>
+                <ListItemText primary={"Create Subteam Task"} />
+              </ListItem>
+            </Link>
+            <Link to={"/subteam-tasks"} style={{ textDecoration: "none" }}>
+              <ListItem button onClick={() => toggleDrawer()}>
+                <ListItemIcon>
+                  <VisibilityIcon />
+                </ListItemIcon>
+                <ListItemText primary={"View Subteam Tasks"} />
+              </ListItem>
+            </Link>
           </List>
         );
       case "FINANCIAL_MANAGER":
@@ -194,12 +253,17 @@ const Header = () => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography style={{flexGrow: 1}} variant="h6">SWEDISH EVENT PLANNERS</Typography>
-            <Button onClick={handleLogout} color="inherit">LOGOUT</Button>
+          <Typography style={{ flexGrow: 1 }} variant="h6">
+            SWEDISH EVENT PLANNERS
+          </Typography>
+          <Button onClick={handleLogout} color="inherit">
+            LOGOUT
+          </Button>
         </Toolbar>
       </AppBar>
+      {role && <p>LOGGED IN AS : {role}</p>}
       <Drawer anchor={"left"} open={drawerOpen} onClose={() => toggleDrawer()}>
-          {list()}
+        {list()}
       </Drawer>
     </div>
   );

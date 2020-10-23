@@ -1,9 +1,5 @@
 import React, { PureComponent } from "react";
 import {
-  getRecruitmentRequestsPromise,
-  modifyRecruitmentRequestPromise,
-} from "../../rest/RecruitmentRequestService";
-import {
   getSubteamTasksPromise,
   modifySubteamTaskPromise,
 } from "../../rest/SubteamTaskService";
