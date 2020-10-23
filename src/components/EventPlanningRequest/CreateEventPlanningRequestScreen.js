@@ -8,6 +8,7 @@ import { createEventPlanningRequest } from "../../rest/EventPlanningRequestServi
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {Redirect} from "react-router-dom";
+import InputLabel from "@material-ui/core/InputLabel/InputLabel";
 toast.configure()
 
 const styles = () => ({
@@ -56,7 +57,7 @@ class CreateEventPlanningRequestScreen extends PureComponent {
     const { classes } = this.props;
     return (
       <div>
-        <div style={{ display: "inline-block", marginTop: "5rem" }}>
+        <div style={{ display: "inline-block", marginTop: "2rem" }}>
           <h2>Create Event Planning Request</h2>
           <form style={{ margin: "2rem" }}>
             <TextField
@@ -126,6 +127,9 @@ class CreateEventPlanningRequestScreen extends PureComponent {
               type={'number'}
               onChange={this.handleTextFieldChange}
             />
+            <InputLabel style={{ textAlign: "left" , marginTop: '2rem'}}>
+               Department
+            </InputLabel>
             <Select
               className={classes.textField}
               id="preferences"
